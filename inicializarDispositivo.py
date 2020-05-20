@@ -10,7 +10,7 @@ os.dupterm(uart)
 
 #JSON con las redes wifi conocidas a las que conectarse
 redesConocidas = {
-    'Esteban_Invitados': {'pwd': 'daoiz22invitados'},
+    'WLAN_Esteban_Invitados': {'pwd': 'daoiz22invitados'},
 }
 
 #Conexión a una red WiFi conocida
@@ -45,8 +45,8 @@ def setRTCLocalTime():
     rtc.ntp_sync("pool.ntp.org")
     utime.sleep_ms(750)
     print('\nRTC establablecido desde NTP a UTC:', rtc.now())
-    utime.timezone(3600)
-    print('Ajuste de zona horaria a GMT+1', utime.localtime(), '\n')
+    utime.timezone(7200)
+    print('Ajuste de zona horaria a GMT+2', utime.localtime(), '\n')
 
 #Estabelcer hora actual al dispositivo
 setRTCLocalTime()
@@ -57,8 +57,8 @@ sigfox = Sigfox(mode=Sigfox.SIGFOX, rcz=Sigfox.RCZ1)
 # Creación de un Socket para establecer comuncación con Sigfox 
 s = socket.socket(socket.AF_SIGFOX, socket.SOCK_RAW)
  
-# Congifuración de bloqueo de Socket 
-s.setblocking(True) 
-
 # Configuración de tipo de conexión unidireccional (solo subida de datos) 
-s.setsockopt(socket.SOL_SIGFOX, socket.SO_RX, True) 
+s.setsockopt(socket.SOL_SIGFOX, socket.SO_RX, False) 
+
+# Congifuración de bloqueo de Socket 
+s.setblocking(True)
